@@ -65,3 +65,4 @@ typings/
 # ignore data files for now
 /data
 
+/server
