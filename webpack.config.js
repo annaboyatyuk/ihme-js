@@ -1,30 +1,21 @@
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 module.exports = {
-  devtool: 'cheap-module-source-map',
-  devServer: {
-    historyApiFallback: true,
-  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-          },
-        ],
+        use: {
+          loader: "babel-loader"
+        }
       },
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
+        test: /\.html$/,
         use: [
           {
-            loader: 'babel-loader',
-          },
-        ],
+            loader: "html-loader"
+          }
+        ]
       },
       {
         test: /\.scss$/,
@@ -42,22 +33,20 @@ module.exports = {
         ],
       },
       {
-        test: /\.(pdf|jpg|png|gif|svg|ico)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[path][name]-[hash:8].[ext]',
-            },
-          },
-        ],
+        test: /\.csv$/,
+        loader: 'csv-loader',
+        options: {
+          dynamicTyping: true,
+          header: true,
+          skipEmptyLines: true,
+        },
       },
-    ],
+    ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'index.html',
-    }),
-  ],
+    new HtmlWebPackPlugin({
+      template: "./public/index.html",
+      filename: "./index.html"
+    })
+  ]
 };
