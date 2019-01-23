@@ -17,7 +17,8 @@ export default class App extends Component {
       dataToSend: [],
       country: 'All Countries',
       year: 'All Years',
-      gender: 'Gender'
+      gender: 'Both',
+      compareYears: false,
     };
   }
 
@@ -27,82 +28,13 @@ export default class App extends Component {
 
 
       this.changeCountry({ target: { value: 'All Countries' } })
-
+      this.changeYear({target: {value: 2017}})
       // this.addTotal()
 
 
     })
   }
 
-  addTotal = () => {
-    let dataToSend = this.state.data;
-
-    dataToSend = dataToSend.reduce((acc, datas, i, array) => {
-
-      // console.log('abc',i)
-      if (acc.length === 0) {
-        acc.push({})
-        acc[0].val = datas.val;
-        acc[0].year = datas.year;
-        acc[0].gender = datas.sex_name;
-        acc[0].counter = 1;
-      }
-      else {
-        console.log('rrr', acc[i], datas.year)
-      }
-      // if(acc[i].year && acc.length === datas.year) {
-      //   console.log('bb',  acc)
-      //   acc[i].val += datas.val;
-      //   acc[i].counter ++;
-      // }
-      // else {
-      //   // acc.push({d:2})
-      acc.push({});
-      acc[i].val = datas.val;
-      acc[i].year = datas.year;
-      acc[i].gender = datas.sex_name;
-      acc[i].counter = 1;
-      // }
-      console.log('ooo', acc[i], i)
-      return acc;
-    }, [])
-  }
-
-  //   addTotal = () => {
-
-  //     let dataToSend = this.state.data;
-  //       dataToSend = dataToSend.reduce((acc, datas) => {
-  //         if(acc.length === 0) {
-  //           acc.push({});
-  //           acc[0].counter = 1;
-  //           acc[0].val = datas.val;
-  //           acc[0].year = datas.year;
-  //         }
-
-  //         for(let i = 0; i < acc.length; i++) {
-  //           // console.log(datas)
-  //           if(acc[i].year === datas.year) {
-  //             console.log(acc[i].year)
-  // // if datas .sex_name === both 
-
-  //             acc[i].val += datas.val;
-  //             acc[i].counter ++;
-  //           }
-  //           else {
-  //             acc.push({});
-  //             acc[i].counter = 1;
-  //             acc[i].val = datas.val;
-  //             acc[i].year = datas.year;
-  //           }
-
-  //           console.log('ooo',acc, i)
-  //         }
-  //         return acc;
-
-  //       },[])
-
-  // console.log('and',dataToSend)
-  // }
 
   changeCountry = (e) => {
     let dataToSend = this.state.data;
@@ -122,7 +54,7 @@ export default class App extends Component {
   changeYear = (e) => {
     let dataToSend = this.state.data;
     let year = parseInt(e.target.value);
-    if (year !== 'All Years') {
+    if (e.target.value !== 'All Years') {
       dataToSend = dataToSend.filter(eachData => eachData.year === year);
     }
     if (this.state.country !== 'All Countries') {
@@ -157,9 +89,13 @@ export default class App extends Component {
 
         <h1>What population is most affected by opioid use disorders?</h1>
 
+
+        <Chart csvData={this.state.dataToSend} allData={this.state} />
+
+
         <select id="countries" onChange={this.changeCountry} >
 
-          <option value="All Countries">All Countries</option>
+          <option value="All Countries">{this.state.country}</option>
           {this.state.data.filter(datas => datas.sex_name === 'Both').reduce((acc, red) => {
             if (!acc.includes(red.location_name)) {
               acc.push(red.location_name);
@@ -173,12 +109,9 @@ export default class App extends Component {
         </select>
 
 
-        <Chart csvData={this.state.dataToSend} changeYear={this.changeYear} changeSex={this.changeSex} />
-
-
         <select id="year" onChange={this.changeYear}>
 
-          <option value="All Years">All Years</option>
+          <option value="All Years">{this.state.year}</option>
           {this.state.data.filter(datas => datas.sex_name === 'Both').reduce((acc, red) => {
             if (!acc.includes(red.year)) {
               acc.push(red.year);
@@ -192,7 +125,7 @@ export default class App extends Component {
 
         <select id="gender" onChange={this.changeSex} >
 
-          <option value="Gender">Gender</option>
+          <option value="Gender">{this.state.gender}</option>
           {this.state.data.reduce((acc, red) => {
             if (!acc.includes(red.sex_name)) {
               acc.push(red.sex_name);
