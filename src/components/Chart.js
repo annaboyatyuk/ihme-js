@@ -39,33 +39,7 @@ export default class Chart extends Component {
             <Bar dataKey="lower" fill="#828a8d" /> */}
         </BarChart>
 
-        <select id="year" onChange={this.props.changeYear}>
-
-          <option value="All Years">All Years</option>
-          {this.props.csvData.filter(datas => datas.sex_name === 'Both').reduce((acc, red) => {
-            if (!acc.includes(red.year)) {
-              acc.push(red.year);
-            }
-            return acc;
-          }, []).sort((a, b) => b - a).map((years, i) => {
-            return <option key={i} value={years}>{years}</option>
-          })}
-
-        </select>
-
-        <select id="gender" onChange={this.props.changeSex} >
-
-          <option value="Gender">Gender</option>
-          {this.props.csvData.reduce((acc, red) => {
-            if(!acc.includes(red.sex_name)) {
-              acc.push(red.sex_name);
-            }
-            return acc;
-          }, []).sort().map((sexName, i) => {
-            return <option key={i} value={sexName}>{sexName}</option>
-          })}
-
-        </select>
+        
 
 
       </Fragment>
