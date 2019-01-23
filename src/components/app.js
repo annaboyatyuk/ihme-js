@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-
-// import showJSON from '../../data/data.json';
-
-import Chart from '../components/Chart.js';
+import '../style/style.scss';
 
 import showCSV from '../../data/IHME-GBD_2017_DATA-37d305ef-1.csv';
+
+import Chart from '../components/Chart.js';
 
 export default class App extends Component {
 
@@ -16,7 +15,7 @@ export default class App extends Component {
       data: [],
       dataToSend: [],
       country: 'All Countries',
-      year: 'All Years',
+      year: 2017,
       gender: 'Both',
       compareYears: false,
     };
@@ -29,7 +28,6 @@ export default class App extends Component {
 
       this.changeCountry({ target: { value: 'All Countries' } })
       this.changeYear({target: {value: 2017}})
-      // this.addTotal()
 
 
     })
@@ -63,7 +61,7 @@ export default class App extends Component {
     if (this.state.gender !== 'Gender') {
       dataToSend = dataToSend.filter(eachData => eachData.sex_name === this.state.gender);
     }
-    this.setState({ dataToSend, year })
+    this.setState({ dataToSend, year:e.target.value })
 
   }
 
@@ -95,7 +93,7 @@ export default class App extends Component {
 
         <select id="countries" onChange={this.changeCountry} >
 
-          <option value="All Countries">{this.state.country}</option>
+          <option value="All Countries">All Countries</option>
           {this.state.data.filter(datas => datas.sex_name === 'Both').reduce((acc, red) => {
             if (!acc.includes(red.location_name)) {
               acc.push(red.location_name);
@@ -109,9 +107,9 @@ export default class App extends Component {
         </select>
 
 
-        <select id="year" onChange={this.changeYear}>
+        <select id="year" onChange={this.changeYear} value={this.state.year}>
 
-          <option value="All Years">{this.state.year}</option>
+          <option value="All Years">All Years</option>
           {this.state.data.filter(datas => datas.sex_name === 'Both').reduce((acc, red) => {
             if (!acc.includes(red.year)) {
               acc.push(red.year);
@@ -123,9 +121,9 @@ export default class App extends Component {
 
         </select>
 
-        <select id="gender" onChange={this.changeSex} >
+        <select id="gender" onChange={this.changeSex} value={this.state.gender} >
 
-          <option value="Gender">{this.state.gender}</option>
+          <option value="Gender">Gender</option>
           {this.state.data.reduce((acc, red) => {
             if (!acc.includes(red.sex_name)) {
               acc.push(red.sex_name);

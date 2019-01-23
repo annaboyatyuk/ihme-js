@@ -39,6 +39,8 @@ export default class Chart extends Component {
             <Bar dataKey="lower" fill="#828a8d" /> */}
           </BarChart>
 
+            <h1>Comparing countries by year</h1>
+
         </Fragment>
       );
 
@@ -67,7 +69,7 @@ export default class Chart extends Component {
     //     </BarChart>
 
 
-
+    // <h1>comparing years per country</h1>
 
 
 
