@@ -77,13 +77,18 @@ export default class App extends Component {
     let dataToSend = this.state.data;
     let gender = e.target.value;
     if (gender !== 'Gender') {
-      dataToSend = dataToSend.filter(eachData => eachData.sex_name === gender);
+      if(this.state.country === 'All Countries') {
+        dataToSend = dataToSend.filter(eachData => eachData.sex_name === gender).sort((a,b) => a.val - b.val);
+      }
+      if(this.state.year === 'All Years') {
+        dataToSend = dataToSend.filter(eachData => eachData.sex_name === gender).sort((a,b) => a.year - b.year);
+      }
     }
     if (this.state.country !== 'All Countries') {
       dataToSend = dataToSend.filter(eachData => eachData.location_name === this.state.country)
     }
     if (this.state.year !== 'All Years') {
-      dataToSend = dataToSend.filter(eachData => eachData.year === this.state.year);
+      dataToSend = dataToSend.filter(eachData => eachData.year === this.state.year)
     }
     this.setState({ dataToSend, gender })
   }
