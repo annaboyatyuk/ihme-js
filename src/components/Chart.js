@@ -1,25 +1,14 @@
 import React, { Component, Fragment } from 'react';
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, Brush } from 'recharts';
 
 
 export default class Chart extends Component {
 
 
-
-
-
-  // renderTooltip() {
-  //   return (
-  //    <div>Custom content</div>
-  //   )
-  // }
-
-
   render() {
 
-    console.log(this.props.allData)
-
+    // console.log(this.props.csvData)
 
     if (this.props.allData.compareYears) {
 
@@ -27,23 +16,20 @@ export default class Chart extends Component {
 
         <Fragment>
 
-
-          <BarChart width={1020} height={430} data={this.props.csvData}
+          <BarChart className="chart" width={1020} height={520} data={this.props.csvData}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={"year"} />
+            <XAxis dataKey="year" />
             <YAxis />
             <Tooltip />
-            {/* <Tooltip content={this.renderTooltip} /> */}
             <Legend />
-            <Bar dataKey="val" fill="#8884d8" />
-            
+            <ReferenceLine y={0} stroke='#000' />
+            <Brush dataKey='name' height={30} stroke="#00dc6d" />
+            <Bar dataKey="val" fill="#004d26" />
+
           </BarChart>
 
-
-          <h1>comparing years per country</h1>
-
-
+          <h3>comparing years per country</h3>
 
         </Fragment>
       );
@@ -55,28 +41,25 @@ export default class Chart extends Component {
       return (
         <Fragment>
 
-          <BarChart width={1020} height={430} data={this.props.csvData}
+          <BarChart className="chart" width={1020} height={430} data={this.props.csvData}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={"location_name"} />
+            <XAxis dataKey="location_name" />
             <YAxis />
             <Tooltip />
-            {/* <Tooltip content={this.renderTooltip} /> */}
             <Legend />
-            <Bar dataKey="val" fill="#8884d8" />
+            <ReferenceLine y={0} stroke='black' />
+            <Brush dataKey='name' height={30} stroke="#00dc6d" />
+            <Bar dataKey="val" fill="#004d26" />
 
           </BarChart>
 
-          <h1>Comparing countries by year</h1>
+          <h3>Comparing countries by year</h3>
 
         </Fragment>
       );
 
-
-
     }
-
-
 
   }
 }
