@@ -16,16 +16,16 @@ export default class Chart extends Component {
 
         <Fragment>
 
-          <BarChart className="chart" width={1020} height={520} data={this.props.csvData}
+          <BarChart className='chart' width={1020} height={520} data={this.props.csvData}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" />
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis dataKey='year' />
             <YAxis />
             <Tooltip />
             <Legend />
             <ReferenceLine y={0} stroke='#000' />
-            <Brush dataKey='name' height={30} stroke="#00dc6d" />
-            <Bar dataKey="val" fill="#004d26" />
+            <Brush dataKey='year' height={30} stroke='#00dc6d' />
+            <Bar dataKey='val' fill='#004d26' />
 
           </BarChart>
 
@@ -41,16 +41,16 @@ export default class Chart extends Component {
       return (
         <Fragment>
 
-          <BarChart className="chart" width={1020} height={430} data={this.props.csvData}
+          <BarChart className='chart' width={1020} height={520} data={this.props.csvData}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="location_name" />
+            <CartesianGrid strokeDasharray='3 3' />
+            <XAxis dataKey='location_name' />
             <YAxis />
             <Tooltip />
             <Legend />
-            <ReferenceLine y={0} stroke='black' />
-            <Brush dataKey='name' height={30} stroke="#00dc6d" />
-            <Bar dataKey="val" fill="#004d26" />
+            <ReferenceLine y={0} stroke='#000' />
+            <Brush dataKey='location_name' height={30} stroke='#00dc6d' />
+            <Bar dataKey='val' fill='#004d26' />
 
           </BarChart>
 
