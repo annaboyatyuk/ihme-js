@@ -24,10 +24,8 @@ export default class App extends Component {
   componentDidMount() {
     this.setState({ data: showCSV }, () => {
 
-
-
       this.changeCountry({ target: { value: 'All Countries' } })
-      this.changeYear({target: {value: 2017}})
+      // this.changeYear({target: {value: 2017}})
 
 
     })
@@ -46,7 +44,13 @@ export default class App extends Component {
     if (this.state.gender !== 'Gender') {
       dataToSend = dataToSend.filter(eachData => eachData.sex_name === this.state.gender);
     }
-    this.setState({ dataToSend, country })
+    if(e.target.value === 'All Countries') {
+      dataToSend = dataToSend.filter(eachData => eachData.year === 2017)
+      this.setState({dataToSend, country, year: 2017, compareYears: false})
+    }
+    else {
+      this.setState({ dataToSend, country })
+    }
   }
 
   changeYear = (e) => {
@@ -61,7 +65,14 @@ export default class App extends Component {
     if (this.state.gender !== 'Gender') {
       dataToSend = dataToSend.filter(eachData => eachData.sex_name === this.state.gender);
     }
-    this.setState({ dataToSend, year:e.target.value })
+    if (e.target.value === 'All Years') {
+      dataToSend = dataToSend.filter(eachData => eachData.location_name === 'United States');
+      this.setState({dataToSend, year:e.target.value, country: 'United States', compareYears: true})
+    }
+    else {
+      this.setState({ dataToSend, year:e.target.value, compareYears: false })
+    }
+
 
   }
 
@@ -91,8 +102,8 @@ export default class App extends Component {
         <Chart csvData={this.state.dataToSend} allData={this.state} />
 
 
-        <select id="countries" onChange={this.changeCountry} >
-
+        <select id="countries" onChange={this.changeCountry} value={this.state.country} >
+        {/* value={this.state.compareYears ? 'United States' : this.state.country} */}
           <option value="All Countries">All Countries</option>
           {this.state.data.filter(datas => datas.sex_name === 'Both').reduce((acc, red) => {
             if (!acc.includes(red.location_name)) {
@@ -100,7 +111,6 @@ export default class App extends Component {
             }
             return acc;
           }, []).sort((a, b) => a < b ? -1 : 1).map((countries, i) => {
-            // console.log(countries)
             return <option key={i} value={countries}>{countries}</option>
           })}
 
