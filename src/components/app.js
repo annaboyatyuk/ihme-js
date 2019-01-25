@@ -49,7 +49,7 @@ export default class App extends Component {
       }
       dataToSend = dataToSend.filter(eachData => eachData.location_name === country).sort((a, b) => a.year - b.year);
       if (this.state.year !== 'All Years') {
-        this.setState({ dataToSend, country, year: 'All Years' })
+        this.setState({ dataToSend, country, year: 'All Years', compareYears: true })
       } else {
         this.setState({ dataToSend, country, compareYears: true })
       }
