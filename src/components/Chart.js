@@ -25,7 +25,15 @@ export default class Chart extends Component {
 
           </BarChart>
 
-          <h3>comparing years per country</h3>
+          <div className="description">
+
+            <h3>comparing years per country</h3>
+
+            <p>Hover over the bars to view the value for each year</p>
+
+            <p>Drag and drop the edges of the bar below the chart to zoom in and view fewer years</p>
+
+          </div>
 
         </Fragment>
       );
@@ -48,7 +56,15 @@ export default class Chart extends Component {
 
           </BarChart>
 
-          <h3>Comparing countries by year</h3>
+          <div className="description">
+
+            <h3>Comparing countries by year</h3>
+
+            <p>Hover over the bars to view the value for each country</p>
+
+            <p>Drag and drop the edges of the bar below the chart to zoom in and view fewer countries</p>
+
+          </div>
 
         </Fragment>
       );

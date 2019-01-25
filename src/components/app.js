@@ -108,7 +108,9 @@ export default class App extends Component {
     return (
       <React.Fragment>
 
-        <h1>What population is most affected by opioid use disorders?</h1>
+        <div className="header">
+          <h1>What population is most affected by opioid use disorders?</h1>
+        </div>
 
         <Chart csvData={this.state.dataToSend} allData={this.state} />
 
