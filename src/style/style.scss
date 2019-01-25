@@ -6,8 +6,8 @@ body  {
   display: flex;
   justify-content: center;
   margin: auto;
-  width: 1040px;
-  height: 100%;
+  // width: 1040px;
+  height: 100vw;
 }
 
 .selectors {
@@ -46,4 +46,6 @@ select {
   width: 1040px;
   margin: auto;
   padding-top: 1vw;
+  text-align: center;
 }
+
