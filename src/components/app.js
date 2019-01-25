@@ -6,6 +6,7 @@ import showCSV from '../../data/IHME-GBD_2017_DATA-37d305ef-1.csv';
 
 import Chart from '../components/Chart.js';
 
+
 export default class App extends Component {
 
   constructor(props) {
@@ -18,13 +19,14 @@ export default class App extends Component {
       year: 2017,
       gender: 'Both',
       compareYears: false,
+      compareByGender: false,
     };
   }
 
   componentDidMount() {
     this.setState({ data: showCSV }, () => {
 
-      this.changeCountry({ target: { value: 'All Countries' } })
+    this.changeCountry({ target: { value: 'All Countries' } })
     })
   }
 
@@ -32,45 +34,58 @@ export default class App extends Component {
   changeCountry = (e) => {
     let dataToSend = this.state.data;
     let country = e.target.value;
-    if (country !== 'All Countries') {
-      dataToSend = dataToSend.filter(eachData => eachData.location_name === country).sort((a,b) => a.year - b.year)
+    if( country === 'All Countries') {
+      if ( this.state.gender !== 'Gender') {
+        dataToSend = dataToSend.filter(eachData => eachData.sex_name === this.state.gender)
+      }
+      if(this.state.year === 'All Years') {
+        dataToSend = dataToSend.filter(eachData => eachData.year === 2017).sort((a,b) => a.val - b.val);
+        this.setState({dataToSend, country, year: 2017, compareYears: false});
+      } else {
+        dataToSend = dataToSend.filter(eachData => eachData.year === this.state.year).sort((a,b) => a.val - b.val);
+        this.setState({dataToSend, country, year: this.state.year, compareYears: false});
+      }
+    } else {
+      if ( this.state.gender !== 'Gender') {
+        dataToSend = dataToSend.filter(eachData => eachData.sex_name === this.state.gender)
+      }
+      dataToSend = dataToSend.filter(eachData => eachData.location_name === country).sort((a,b) => a.year - b.year);
+      if (this.state.year !== 'All Years') {
+        this.setState({dataToSend, country, year: 'All Years'})
+      } else {
+        this.setState({dataToSend, country, compareYears: true})
+      }
     }
-    if (this.state.year !== 'All Years') {
-      dataToSend = dataToSend.filter(eachData => eachData.year === this.state.year);
-    }
-    if (this.state.gender !== 'Gender') {
-      dataToSend = dataToSend.filter(eachData => eachData.sex_name === this.state.gender);
-    }
-    if(e.target.value === 'All Countries') {
-      dataToSend = dataToSend.filter(eachData => eachData.year === 2017).sort((a,b) => a.val - b.val)
-      this.setState({dataToSend, country, year: 2017, compareYears: false})
-    }
-    else {
-      this.setState({ dataToSend, country }, () => console.log(dataToSend))
-    }
+    console.log('aa', this.state)
   }
+
 
   changeYear = (e) => {
     let dataToSend = this.state.data;
     let year = parseInt(e.target.value);
-    if (e.target.value !== 'All Years') {
+    if ( e.target.value === 'All Years') {
+      if ( this.state.gender !== 'Gender') {
+        dataToSend = dataToSend.filter(eachData => eachData.sex_name === this.state.gender);
+      }
+      if ( this.state.country === 'All Countries') {
+        dataToSend = dataToSend.filter(eachData => eachData.location_name === 'United States').sort((a,b) => a.year - b.year);
+        this.setState({dataToSend, year: e.target.value, country: 'United States', compareYears: true})
+      } else {
+        dataToSend = dataToSend.filter(eachData => eachData.location_name === this.state.location_name).sort((a,b) => a.year - b.year);
+        this.setState({dataToSend, year: e.target.value, compareYears: true})
+      }
+    } else {
+      if( this.state.gender !== 'Gender') {
+        dataToSend = dataToSend.filter(eachData => eachData.sex_name === this.state.gender)
+      }
       dataToSend = dataToSend.filter(eachData => eachData.year === year).sort((a,b) => a.val - b.val);
+      if ( this.state.country !== 'All Countries') {
+        this.setState({dataToSend, year, country: 'All Countries', compareYears: false})
+      } else {
+        this.setState({dataToSend, year})
+      }
     }
-    if (this.state.country !== 'All Countries') {
-      dataToSend = dataToSend.filter(eachData => eachData.location_name === this.state.country)
-    }
-    if (this.state.gender !== 'Gender') {
-      dataToSend = dataToSend.filter(eachData => eachData.sex_name === this.state.gender);
-    }
-    if (e.target.value === 'All Years') {
-      dataToSend = dataToSend.filter(eachData => eachData.location_name === 'United States').sort((a,b) => a.year - b.year);
-      this.setState({dataToSend, year:e.target.value, country: 'United States', compareYears: true})
-    }
-    else {
-      this.setState({ dataToSend, year:e.target.value, compareYears: false })
-    }
-
-
+    console.log('bb', this.state)
   }
 
   changeSex = (e) => {
@@ -88,13 +103,13 @@ export default class App extends Component {
       dataToSend = dataToSend.filter(eachData => eachData.location_name === this.state.country)
     }
     if (this.state.year !== 'All Years') {
-      dataToSend = dataToSend.filter(eachData => eachData.year === this.state.year)
+      dataToSend = dataToSend.filter(eachData => eachData.year === this.state.year).sort((a,b) => a.val - b.val)
     }
     this.setState({ dataToSend, gender })
   }
 
   render() {
-    // console.log(this.state.dataToSend)
+
     return (
       <React.Fragment>
 
