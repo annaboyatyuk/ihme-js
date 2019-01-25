@@ -2,7 +2,7 @@
 This is a data visualization to answer the question “What population is most affected by opioid use disorders?”.
 
 ## Live Site
-This exercise is deployed 
+This exercise is deployed at https://annaboyatyuk.github.io/ihme-js/
 
 ## To Install
 Run the command `npm i` in the root directory to install all dependencies. *note: you must have node to run this project locally*
