@@ -6,12 +6,13 @@ body  {
   display: flex;
   justify-content: center;
   margin: auto;
-  height: 100vw;
+  max-height: 100%;
 }
 
 .selectors {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   flex: 1 0 auto;
 }
 
@@ -25,8 +26,8 @@ select {
 
 .description {
   background: #f8f8f8;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 1px;
+  text-align: center;
 }
 
 .header {
